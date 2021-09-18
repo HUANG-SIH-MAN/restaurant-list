@@ -1,6 +1,7 @@
 //載入相關套件、資料
 const express = require('express')
 const exphbs = require('express-handlebars')
+const mongoose = require('mongoose')
 const restaurantList = require('./restaurant.json')
 
 const app = express()
@@ -10,6 +11,19 @@ const port = 3000
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 app.use(express.static('public'))
+
+//資料庫連線設定
+mongoose.connect('mongodb://localhost/restaurant-list') //連線到目標資料庫
+const db = mongoose.connection  //取得連線資料
+//確認連線狀態
+db.on('error', ()=>{
+    console.log('mongodb error !')
+})
+
+db.once('open', ()=>{
+    console.log('mongodb connented !')
+})
+
 
 app.get('/', (req, res) => {
     const restaurants = restaurantList.results

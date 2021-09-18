@@ -15,20 +15,16 @@
 
 - 使用框架 express 4.17.1
 - 使用樣板引擎 express-handlebars 5.3.3
+- 使用資料庫 mongodb
 - 安裝
   - 下載專案
     ```
     https://github.com/HUANG-SIH-MAN/restaurant-list.git
     ```
-  - 安裝相關套件
-    ```
-    npm init
-    npm install express
-    npm i express-handlebars
-    ```
   - 執行程式
     ```
-    npm run start
+    $ npm run start
+    $ npm run dev
     ```
   - 伺服器位置
     ```
