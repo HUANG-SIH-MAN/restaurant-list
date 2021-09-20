@@ -73,15 +73,20 @@ app.get('/restaurants/:id/edit', (req, res) => {
 //接收編輯後的餐廳資料
 app.post('/restaurants/:id/edit', (req, res) => {
     const id = req.params.id
-    restaurant.findById(id)
-    .then(restaurant => {
-        restaurant.name = req.body.name
-        restaurant.name = req.body.name
-        restaurant.name = req.body.name
-        restaurant.name = req.body.name
-        return restaurant.save()
-    })
+    restaurant.findByIdAndUpdate(id, { $set: req.body })
     .then(()=> res.redirect(`/restaurants/${id}/detail`))
+    .catch(error => console.log(error))
+})
+
+//新增餐廳資料    
+app.get('/createRestaurant', (req, res) => {
+    res.render('create')
+})
+
+//接收新增的餐廳資料
+app.post('/createRestaurant', (req, res) => {
+    restaurant.create(req.body)
+    .then(()=> res.redirect('/'))
     .catch(error => console.log(error))
 })
 

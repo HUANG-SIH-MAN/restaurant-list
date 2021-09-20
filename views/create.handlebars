@@ -1,0 +1,74 @@
+<h1 class="mb-1 restaurant-show-title">新增餐廳資訊</h1>
+<div class="container mb-5">
+  <div class="row">
+    <div class="col-12 col-md-10 mx-auto">
+        <form action="/createRestaurant" method="POST">
+            <div class="form-group mt-2">
+                <i class="fas fa-utensils"></i> 
+                <label for="restaurant-name">餐廳名稱</label>
+                <input id="restaurant-name" class="form-control" name="name" type="text" placeholder="請輸入餐廳名稱">
+            </div>
+            <div class="form-group mt-2">
+                <i class="fas fa-signature"></i>
+                <label for="restaurant-en-name">餐廳英文名稱</label>
+                <input id="restaurant-en-name" class="form-control" name="name_en" type="text" placeholder="Please enter restaurant name">
+            </div>
+            <div class="form-group mt-2">
+                <i class="fas fa-list-ul"></i>
+                <label for="restaurant-category">餐廳類別</label>
+                <select class="custom-select" id="restaurant-category" name="category">
+                    <option value="酒吧">酒吧</option>
+                    <option value="美式">美式</option>
+                    <option value="咖啡">咖啡</option>                    
+                    <option value="中式料理">中式料理</option>
+                    <option value="中東料理">中東料理</option>
+                    <option value="日本料理">日本料理</option>
+                </select>
+            </div>   
+            <div class="form-group mt-2">
+                <i class="far fa-star"></i>
+                <span>餐廳評分</span>
+                <div class="rating">
+                    <input type="radio" id="star5" name="rating" value="5" hidden/>
+                    <label for="star5"></label>
+                    <input type="radio" id="star4" name="rating" value="4" hidden/>
+                    <label for="star4"></label>
+                    <input type="radio" id="star3" name="rating" value="3" hidden/>
+                    <label for="star3"></label>
+                    <input type="radio" id="star2" name="rating" value="2" hidden/>
+                    <label for="star2"></label>
+                    <input type="radio" id="star1" name="rating" value="1" hidden/>
+                    <label for="star1"></label>
+                </div>
+            </div>
+            <div class="form-group mt-2">
+                <i class="fas fa-phone-alt"></i>
+                <label for="restaurant-phone">餐廳電話</label>
+                <input id="restaurant-phone" class="form-control" name="phone" type="tel" placeholder="02 2521 2813">
+            </div>
+            <div class="form-group mt-2">
+                <i class="fas fa-map-marker-alt"></i>
+                <label for="restaurant-location">餐廳地址</label>
+                <input id="restaurant-location" class="form-control" name="location" type="text" placeholder="請輸入餐廳地址">
+            </div> 
+            <div class="form-group mt-2">
+                <i class="fas fa-info"></i>
+                <label for="restaurant-description">餐廳介紹</label>
+                <textarea class="form-control" id="restaurant-description" rows="4" name="description"></textarea>
+            </div>    
+            <div class="form-group mt-2">
+                <i class="far fa-images"></i>
+                <label for="restaurant-image">照片</label>
+                <input id="restaurant-image" class="form-control" name="image" type="url" placeholder="https://">
+            </div>
+            <div class="form-group mt-2">
+                <i class="fas fa-map-marked-alt"></i>
+                <label for="restaurant-google_map">地圖</label>
+                <input id="restaurant-google_map" class="form-control" name="google_map" type="url" placeholder="https://www.google.com/maps/">
+            </div>                                                               
+            <button class="btn btn-outline-primary" type="submit">新增餐廳資料</button>
+            <a href="/"><button type="button" class="btn btn-outline-primary">返回</button></a>          
+        </form>
+    </div>
+  </div>
+</div>
