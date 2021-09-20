@@ -34,11 +34,23 @@
                          <i class="fas fa-star fa-xs"></i>
                       </span>
                   </div>
-                  <div class="btn-group m-2" role="group" aria-label="Basic example">
-                    <a href="/restaurants/{{ this._id }}/edit"><button type="button" class="btn btn-light">Edit</button></a>
-                    <a href="/restaurants/{{ this._id }}/detail"><button type="button" class="btn btn-light">Detail</button></a>
-                    <a href="/restaurants/{{ this._id }}/delete"><button type="button" class="btn btn-light">Delete</button></a>
+                  <div class="d-flex justify-content-end">
+                    <div class="btn-group m-2" role="group" aria-label="Basic example">
+                      <a href="/restaurants/{{ this._id }}/edit">
+                        <i class="fas fa-edit"></i>
+                        <button type="button" class="btn btn-light">Edit</button>
+                      </a>
+                      <a href="/restaurants/{{ this._id }}/detail">
+                        <i class="far fa-file-alt"></i>
+                        <button type="button" class="btn btn-light">Detail</button>
+                      </a>
+                      <a href="/restaurants/{{ this._id }}/delete">
+                        <i class="fas fa-trash-alt"></i>
+                        <button type="button" class="btn btn-light">Delete</button>
+                      </a>
+                    </div>                    
                   </div>
+
               </div>
         {{/each}}
       </div>

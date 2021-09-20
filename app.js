@@ -93,12 +93,13 @@ app.post('/createRestaurant', (req, res) => {
 //顯現搜尋結果
 app.post('/search', (req, res) => {
     const keyword = req.body.keyword
-    //新的方法
+    //新的方法 (輸入字串一定要完整符合才行)
     restaurant.find({$or:[ { name: keyword }, { category: keyword } ]})
     .lean()
     .then(restaurants => res.render('index', {restaurants, keyword}))
     .catch(error => console.log(error))
-    //原本方法
+
+    //原本方法 (輸入字串只須部分符合，就可搜尋到結果)
     // restaurant.find()
     // .lean()
     // .then(restaurants => {
