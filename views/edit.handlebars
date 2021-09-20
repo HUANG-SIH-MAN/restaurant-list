@@ -6,17 +6,17 @@
             <div class="form-group mt-2">
                 <i class="fas fa-utensils"></i> 
                 <label for="restaurant-name">餐廳名稱</label>
-                <input id="restaurant-name" class="form-control" name="name" type="text" value="{{ restaurant.name }}" placeholder="請輸入餐廳名稱">
+                <input id="restaurant-name" class="form-control" name="name" type="text" value="{{ restaurant.name }}" placeholder="請輸入餐廳名稱" required>
             </div>
             <div class="form-group mt-2">
                 <i class="fas fa-signature"></i>
                 <label for="restaurant-en-name">餐廳英文名稱</label>
-                <input id="restaurant-en-name" class="form-control" name="name_en" type="text" value="{{ restaurant.name_en }}" placeholder="Please enter restaurant name">
+                <input id="restaurant-en-name" class="form-control" name="name_en" type="text" value="{{ restaurant.name_en }}" placeholder="Please enter restaurant name" required>
             </div>
             <div class="form-group mt-2">
                 <i class="fas fa-list-ul"></i>
                 <label for="restaurant-category">餐廳類別</label>
-                <select class="custom-select" id="restaurant-category" name="category">
+                <select class="custom-select" id="restaurant-category" name="category" required>
                     <optgroup label="原本餐廳類別">
                         <option value="{{ restaurant.category }}" selected>{{ restaurant.category }}</option>
                     </optgroup>
@@ -51,27 +51,27 @@
             <div class="form-group mt-2">
                 <i class="fas fa-phone-alt"></i>
                 <label for="restaurant-phone">餐廳電話</label>
-                <input id="restaurant-phone" class="form-control" name="phone" type="tel" value="{{ restaurant.phone }}" placeholder="02 2521 2813">
+                <input id="restaurant-phone" class="form-control" name="phone" type="tel" value="{{ restaurant.phone }}" placeholder="02 2521 2813" required>
             </div>
             <div class="form-group mt-2">
                 <i class="fas fa-map-marker-alt"></i>
                 <label for="restaurant-location">餐廳地址</label>
-                <input id="restaurant-location" class="form-control" name="location" type="text" value="{{ restaurant.location }}" placeholder="請輸入餐廳地址">
+                <input id="restaurant-location" class="form-control" name="location" type="text" value="{{ restaurant.location }}" placeholder="請輸入餐廳地址" required>
             </div> 
             <div class="form-group mt-2">
                 <i class="fas fa-info"></i>
                 <label for="restaurant-description">餐廳介紹</label>
-                <textarea class="form-control" id="restaurant-description" rows="4" name="description">{{ restaurant.description }}</textarea>
+                <textarea class="form-control" id="restaurant-description" rows="4" name="description" required>{{ restaurant.description }}</textarea>
             </div>    
             <div class="form-group mt-2">
                 <i class="far fa-images"></i>
                 <label for="restaurant-image">照片</label>
-                <input id="restaurant-image" class="form-control" name="image" type="url" value="{{ restaurant.image }}" placeholder="https://">
+                <input id="restaurant-image" class="form-control" name="image" type="url" value="{{ restaurant.image }}" placeholder="https://" required>
             </div>
             <div class="form-group mt-2">
                 <i class="fas fa-map-marked-alt"></i>
                 <label for="restaurant-google_map">地圖</label>
-                <input id="restaurant-google_map" class="form-control" name="google_map" type="url" value="{{ restaurant.google_map }}" placeholder="https://www.google.com/maps/">
+                <input id="restaurant-google_map" class="form-control" name="google_map" type="url" value="{{ restaurant.google_map }}" pattern="https://goo.gl/maps/.*" placeholder="https://goo.gl/maps/" required>
             </div>                                                               
             <button class="btn btn-outline-primary" type="submit">修改餐廳資料</button>
             <a href="/"><button type="button" class="btn btn-outline-primary">返回</button></a>          

@@ -90,13 +90,14 @@ app.post('/createRestaurant', (req, res) => {
     .catch(error => console.log(error))
 })
 
-// app.get('/search', (req, res) => {
-//     const keyword = req.query.keyword
-//     const n1 = restaurantList.results.filter(item => item.name.toLowerCase().includes(keyword.toLowerCase()))
-//     const n2 = restaurantList.results.filter(item =>item.category.toLowerCase().includes(keyword.toLowerCase()))
-//     const restaurants = n1.concat(n2)
-//     res.render('index', {restaurants, keyword})
-// })
+app.post('/search', (req, res) => {
+    const keyword = req.body.keyword
+    // restaurant.find({ name:  })
+    // .lean()
+    // .then(restaurants => res.render('index', {restaurants, keyword}))
+    // .then(restaurants => console.log(restaurants))
+    // .catch(error => console.log(error))
+})
 
 app.listen(port, ()=>{
     console.log(`localhost:${port}`)
