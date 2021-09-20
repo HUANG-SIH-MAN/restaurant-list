@@ -2,7 +2,11 @@
 <div class="container">
   <div class="row">
     <div class="col-12 col-md-10 mx-auto">
-
+      <div class="btn-group m-2" role="group" aria-label="Basic example">
+        <a href="/restaurants/{{ restaurant._id }}/edit"><button type="button" class="btn btn-light">Edit</button></a>
+        <a href="/restaurants/{{ restaurant._id }}/delete"><button type="button" class="btn btn-light">Delete</button></a>
+        <a href="/"><button type="button" class="btn btn-light">Back</button></a>
+      </div>
       <p class="mb-1">
         <span class="text-secondary">
           <i class="fas fa-utensils pr-2"></i>

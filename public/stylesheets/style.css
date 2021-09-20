@@ -1,3 +1,4 @@
+/*網站主畫面設定*/
 header {
 	overflow: hidden;
 }
@@ -79,6 +80,7 @@ header {
 	text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
+/*RWD設定*/
 @media screen and (max-width: 992px) {
 	.card img {
 		height: 115px;
@@ -95,4 +97,35 @@ header {
 	.card img {
 		height: auto;
 	}
+}
+
+/*星星評分設定*/
+.rating {
+	font-size: 0;
+	display: table;
+}
+
+.rating > label {
+	color: #ddd;
+	float: right;
+}
+
+.rating > label:before {
+	padding: 5px;
+	font-size: 24px;
+	line-height: 1em;
+	display: inline-block;
+	content: '★';
+}
+
+.rating > input:checked ~ label,
+.rating:not(:checked) > label:hover,
+.rating:not(:checked) > label:hover ~ label {
+	color: #2f6de0;
+}
+
+.rating > input:checked ~ label:hover,
+.rating > label:hover ~ input:checked ~ label,
+.rating > input:checked ~ label:hover ~ label {
+	opacity: 0.5;
 }

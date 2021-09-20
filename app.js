@@ -2,7 +2,9 @@
 const express = require('express')
 const exphbs = require('express-handlebars')
 const mongoose = require('mongoose')
+//const multer = require('multer')
 
+//設定連線路由
 const app = express()
 const port = 3000
 
@@ -10,19 +12,29 @@ const port = 3000
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 app.use(express.static('public'))
+app.use(express.urlencoded({ extended: true }))
+
+//設定上傳檔案物件
+// const storage = multer.diskStorage({
+//     destination: function (req, file, cb) {
+//       cb(null, 'public')
+//     },
+//     filename: function (req, file, cb) {
+//       cb(null, file.fieldname + '-' + Date.now())
+//     }
+// })
+// var upload = multer({storage: storage})
 
 //資料庫連線設定
 mongoose.connect('mongodb://localhost/restaurant-list') //連線到目標資料庫
 const db = mongoose.connection  //取得連線資料
-//確認連線狀態
-db.on('error', ()=>{
+db.on('error', ()=>{    //確認連線狀態
     console.log('mongodb error !')
 })
 db.once('open', ()=>{
     console.log('mongodb connented !')
 })
-//取出餐廳 model
-const restaurant = require('./models/restaurant') 
+const restaurant = require('./models/restaurant') //取出餐廳 model
 
 //網站路由設定
 //首頁
@@ -37,7 +49,39 @@ app.get('/restaurants/:id/detail', (req, res) => {
     const id = req.params.id
     restaurant.findById(id)
     .lean()
-    .then(restaurant => res.render('show', {restaurant}))
+    .then(restaurant => res.render('show', { restaurant }))
+    .catch(error => console.log(error))
+})
+
+//刪除餐廳資料
+app.get('/restaurants/:id/delete', (req, res) => {
+    const id = req.params.id
+    restaurant.findByIdAndRemove(id)
+    .then(()=> res.redirect('/'))
+    .catch(error => console.log(error))
+})
+
+//編輯餐廳資料
+app.get('/restaurants/:id/edit', (req, res) => {
+    const id = req.params.id
+    restaurant.findById(id)
+    .lean()
+    .then(restaurant => res.render('edit', { restaurant }))
+    .catch(error => console.log(error))
+})
+
+//接收編輯後的餐廳資料
+app.post('/restaurants/:id/edit', (req, res) => {
+    const id = req.params.id
+    restaurant.findById(id)
+    .then(restaurant => {
+        restaurant.name = req.body.name
+        restaurant.name = req.body.name
+        restaurant.name = req.body.name
+        restaurant.name = req.body.name
+        return restaurant.save()
+    })
+    .then(()=> res.redirect(`/restaurants/${id}/detail`))
     .catch(error => console.log(error))
 })
 

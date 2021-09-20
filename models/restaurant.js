@@ -37,7 +37,7 @@ const restaurantSchema = new schema({
     "description":{
         type: String,    
         required: true
-    },
+    }
 })
 
 //透過 module.exports 把這個 schema 輸出
