@@ -90,12 +90,23 @@ app.post('/createRestaurant', (req, res) => {
     .catch(error => console.log(error))
 })
 
+//顯現搜尋結果
 app.post('/search', (req, res) => {
     const keyword = req.body.keyword
-    // restaurant.find({ name:  })
+    //新的方法
+    restaurant.find({$or:[ { name: keyword }, { category: keyword } ]})
+    .lean()
+    .then(restaurants => res.render('index', {restaurants, keyword}))
+    .catch(error => console.log(error))
+    //原本方法
+    // restaurant.find()
     // .lean()
-    // .then(restaurants => res.render('index', {restaurants, keyword}))
-    // .then(restaurants => console.log(restaurants))
+    // .then(restaurants => {
+    //     const n1 = restaurants.filter(item => item.name.toLowerCase().includes(keyword.toLowerCase()))
+    //     const n2 = restaurants.filter(item =>item.category.toLowerCase().includes(keyword.toLowerCase()))
+    //     const searchData = n1.concat(n2)
+    //     res.render('index', {restaurants: searchData, keyword})
+    // })
     // .catch(error => console.log(error))
 })
 
