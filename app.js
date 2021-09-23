@@ -2,7 +2,6 @@
 const express = require('express')
 const exphbs = require('express-handlebars')
 const mongoose = require('mongoose')
-//const multer = require('multer')
 
 //設定連線路由
 const app = express()
@@ -13,17 +12,6 @@ app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }))
-
-//設定上傳檔案物件
-// const storage = multer.diskStorage({
-//     destination: function (req, file, cb) {
-//       cb(null, 'public')
-//     },
-//     filename: function (req, file, cb) {
-//       cb(null, file.fieldname + '-' + Date.now())
-//     }
-// })
-// var upload = multer({storage: storage})
 
 //資料庫連線設定
 mongoose.connect('mongodb://localhost/restaurant-list') //連線到目標資料庫
@@ -93,22 +81,13 @@ app.post('/createRestaurant', (req, res) => {
 //顯現搜尋結果
 app.post('/search', (req, res) => {
     const keyword = req.body.keyword
-    //新的方法 (輸入字串一定要完整符合才行)
-    restaurant.find({$or:[ { name: keyword }, { category: keyword } ]})
+    restaurant.find({ $or:[
+        { name: {$regex : keyword, $options:'i'} },
+        { category: {$regex : keyword, $options:'i'} },
+        ]})
     .lean()
     .then(restaurants => res.render('index', {restaurants, keyword}))
     .catch(error => console.log(error))
-
-    //原本方法 (輸入字串只須部分符合，就可搜尋到結果)
-    // restaurant.find()
-    // .lean()
-    // .then(restaurants => {
-    //     const n1 = restaurants.filter(item => item.name.toLowerCase().includes(keyword.toLowerCase()))
-    //     const n2 = restaurants.filter(item =>item.category.toLowerCase().includes(keyword.toLowerCase()))
-    //     const searchData = n1.concat(n2)
-    //     res.render('index', {restaurants: searchData, keyword})
-    // })
-    // .catch(error => console.log(error))
 })
 
 app.listen(port, ()=>{
