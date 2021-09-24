@@ -4,6 +4,7 @@ const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const methodOverride = require('method-override') 
+const routes = require('./routes')
 
 //設定連線路由
 const app = express()
@@ -28,70 +29,7 @@ db.once('open', ()=>{
 const restaurant = require('./models/restaurant') //取出餐廳 model
 
 //網站路由設定
-//首頁
-app.get('/', (req, res) => {
-    restaurant.find()
-    .lean()
-    .then(restaurants => res.render('index', {restaurants}))
-    .catch(error => console.log(error))
-})
-//個別餐廳詳細資訊
-app.get('/restaurants/:id/detail', (req, res) => {
-    const id = req.params.id
-    restaurant.findById(id)
-    .lean()
-    .then(restaurant => res.render('show', { restaurant }))
-    .catch(error => console.log(error))
-})
-
-//刪除餐廳資料
-app.delete('/restaurants/:id', (req, res) => {
-    const id = req.params.id
-    restaurant.findByIdAndRemove(id)
-    .then(()=> res.redirect('/'))
-    .catch(error => console.log(error))
-})
-
-//編輯餐廳資料
-app.get('/restaurants/:id/edit', (req, res) => {
-    const id = req.params.id
-    restaurant.findById(id)
-    .lean()
-    .then(restaurant => res.render('edit', { restaurant }))
-    .catch(error => console.log(error))
-})
-
-//接收編輯後的餐廳資料
-app.put('/restaurants/:id/edit', (req, res) => {
-    const id = req.params.id
-    restaurant.findByIdAndUpdate(id, { $set: req.body })
-    .then(()=> res.redirect(`/restaurants/${id}/detail`))
-    .catch(error => console.log(error))
-})
-
-//新增餐廳資料    
-app.get('/restaurant/create', (req, res) => {
-    res.render('create')
-})
-
-//接收新增的餐廳資料
-app.post('/restaurant/create', (req, res) => {
-    restaurant.create(req.body)
-    .then(()=> res.redirect('/'))
-    .catch(error => console.log(error))
-})
-
-//顯現搜尋結果
-app.post('/search', (req, res) => {
-    const keyword = req.body.keyword
-    restaurant.find({ $or:[
-        { name: {$regex : keyword, $options:'i'} },
-        { category: {$regex : keyword, $options:'i'} },
-        ]})
-    .lean()
-    .then(restaurants => res.render('index', {restaurants, keyword}))
-    .catch(error => console.log(error))
-})
+app.use(routes)
 
 app.listen(port, ()=>{
     console.log(`localhost:${port}`)
