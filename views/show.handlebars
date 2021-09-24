@@ -2,10 +2,12 @@
 <div class="container">
   <div class="row">
     <div class="col-12 col-md-10 mx-auto">
-      <div class="btn-group m-2" role="group" aria-label="Basic example">
+      <div class="container m-2 d-flex justify-content-start align-items-center">
         <a href="/restaurants/{{ restaurant._id }}/edit"><button type="button" class="btn btn-outline-primary m-2">Edit</button></a>
-        <a href="/restaurants/{{ restaurant._id }}/delete"><button type="button" class="btn btn-outline-primary m-2">Delete</button></a>
         <a href="/"><button type="button" class="btn btn-outline-primary m-2">Back</button></a>
+        <form action="/restaurants/{{ restaurant._id }}?_method=DELETE" method="POST">
+          <button type="submit" class="btn btn-outline-danger ml-2">Delete</button>
+        </form>
       </div>
       <p class="mb-1">
         <span class="text-secondary">
