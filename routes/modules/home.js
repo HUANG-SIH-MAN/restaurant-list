@@ -17,6 +17,7 @@ router.post('/search', (req, res) => {
     restaurant.find({ $or:[
         { name: {$regex : keyword, $options:'i'} },
         { category: {$regex : keyword, $options:'i'} },
+        { location: {$regex : keyword, $options:'i'} }
         ]})
     .lean()
     .then(restaurants => res.render('index', {restaurants, keyword}))

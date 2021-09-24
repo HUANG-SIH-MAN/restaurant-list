@@ -5,7 +5,7 @@
       <form action="/search" method="POST">
         <h4 class="mb-2">尋找餐廳：</h4>
         <div class="input-group">
-          <input type="text" name="keyword" class="form-control" placeholder="輸入餐廳、分類" aria-label="Restaurant Name..." value="{{ keyword }}" aria-describedby="search-button">
+          <input type="text" name="keyword" class="form-control" placeholder="輸入餐廳、分類、地區" aria-label="Restaurant Name..." value="{{ keyword }}" aria-describedby="search-button">
           <div class="input-group-append">
             <button class="btn btn-major" type="submit" id="search-button"><i class="fas fa-search"></i></button>
           </div>
@@ -20,19 +20,19 @@
     <div class="form-group">
       <label class="m-3" for="sort">餐廳排序方式</label>
       <select class="form-control" name="sort" id="sort" onchange="sort-form.submit()">
-        <option value="nameA">名稱 A → Z</option>
-        <option value="nameZ">名稱 Z → A</option>
-        <option value="category">類別</option>
-        <option value="location">地區</option>
+        <option value="nameA" {{{equal sort 'nameA'}}}>名稱 A → Z</option>
+        <option value="nameZ" {{{equal sort 'nameZ'}}}>名稱 Z → A</option>
+        <option value="category" {{{equal sort 'category'}}}>類別</option>
+        <option value="location" {{{equal sort 'location'}}}>地區</option>
       </select>      
     </div>
     <div class="form-group">
       <label class="m-3" for="rating">選取餐廳評分</label>
       <select class="form-control" name="rating" id="rating" onchange="sort-form.submit()">
-        <option value="0">全部顯示</option>
-        <option value="4.5">4.5分以上</option>
-        <option value="4">4分以上</option>
-        <option value="3">3分以上</option>
+        <option value="0" {{{equal rating '0'}}}>全部顯示</option>
+        <option value="4.5" {{{equal rating '4.5'}}}>4.5分以上</option>
+        <option value="4" {{{equal rating '4'}}}>4分以上</option>
+        <option value="3" {{{equal rating '3'}}}>3分以上</option>
       </select>
     </div>
   </form>

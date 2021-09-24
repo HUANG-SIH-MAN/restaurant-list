@@ -10,7 +10,14 @@ const app = express()
 const port = 3000
 
 // express 相關設定
-app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
+app.engine('handlebars', exphbs({
+    defaultLayout: 'main',
+    helpers:{
+        equal: function (a, b) {
+            if (a === b) return 'selected'
+        }
+    }
+    }))
 app.set('view engine', 'handlebars')
 app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }))
