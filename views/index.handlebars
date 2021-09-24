@@ -14,6 +14,29 @@
     </div>
   </div>
 </div>
+<div class="container d-flex justify-content-center mt-4">
+  <a class="btn btn-primary m-3" href="/restaurant/create" type="button">新增餐廳清單</a>
+  <form class="form-inline" action="/sort?_method=PUT" method="POST" id="sort-form">
+    <div class="form-group">
+      <label class="m-3" for="sort">餐廳排序方式</label>
+      <select class="form-control" name="sort" id="sort" onchange="sort-form.submit()">
+        <option value="nameA">名稱 A → Z</option>
+        <option value="nameZ">名稱 Z → A</option>
+        <option value="category">類別</option>
+        <option value="location">地區</option>
+      </select>      
+    </div>
+    <div class="form-group">
+      <label class="m-3" for="rating">選取餐廳評分</label>
+      <select class="form-control" name="rating" id="rating" onchange="sort-form.submit()">
+        <option value="0">全部顯示</option>
+        <option value="4.5">4.5分以上</option>
+        <option value="4">4分以上</option>
+        <option value="3">3分以上</option>
+      </select>
+    </div>
+  </form>
+</div>
 
 <!-- restaurant list -->
 <div class="container mt-5">
@@ -64,12 +87,3 @@
     </div>
   {{/if}}
 </div>
-
-<div class="container mt-5">
-  <div class="row">
-    <div class="jumbotron col-md-10 col-12 mx-auto"> 
-      <h2 class="mb-3">新增餐廳清單</h2>
-      <p class="lead">上面都沒有你喜歡的餐廳嗎?  趕快新增你最愛的餐廳資訊!!</p>
-      <a class="btn btn-primary" href="/restaurant/create" role="button">新增</a>
-    </div> 
-  </div> 
