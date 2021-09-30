@@ -7,7 +7,7 @@ const routes = require('./routes')
 
 //設定連線路由
 const app = express()
-const port = 3000
+const port = process.env.PORT || 3000
 
 // express 相關設定
 app.engine('handlebars', exphbs({
