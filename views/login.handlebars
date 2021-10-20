@@ -1,0 +1,21 @@
+<h1 class="mb-1 restaurant-show-title">登入帳號</h1>
+<div class="container mb-5">
+  <div class="row">
+    <div class="col-12 col-md-10 mx-auto">
+    <form action="/users/login" method="post">
+        <div class="form-group mt-2">
+            <i class="fas fa-envelope"></i> 
+            <label for="user-email">電子郵件</label>
+            <input id="user-email" class="form-control" name="email" type="email"  placeholder="請輸入電子郵件" required>
+        </div>
+        <div class="form-group mt-2">
+            <i class="fas fa-key"></i> 
+            <label for="user-password">密碼</label>
+            <input id="user-password" class="form-control" name="password" type="password" placeholder="請輸入密碼" minlength="6" required>
+        </div>
+    <button class="btn btn-outline-primary mt-3" type="submit">登入帳號</button>
+    </form>
+    </div> 
+  </div> 
+</div>       
+
