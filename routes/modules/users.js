@@ -9,16 +9,17 @@ router.get('/register', (req, res) => {
 
 router.post('/register', (req, res) => {
     const { name, email, password, confirmPassword } = req.body
+    if (password !== confirmPassword) {
+        return res.render('register', { error: '密碼與確認密碼不符!!', name, email, password, confirmPassword })
+    }
     User.findOne({ email })
     .then(user => {
         if (user) {
-            console.log('使用者已經註冊過了')
-            res.render('register', { name, email, password, confirmPassword })
-        } else {
-            User.create({ name, email, password })
-            .then(() => res.redirect('/'))
-            .catch(error => console.log(error))
-        }
+            return res.render('register', { error: '使用者已經註冊過了',name, email, password, confirmPassword })
+        } 
+        User.create({ name, email, password })
+        .then(() => res.redirect('/'))
+        .catch(error => console.log(error))
     })
 })
 
@@ -33,6 +34,7 @@ router.post('/login', passport.authenticate('local', {
 
 router.get('/logout', (req, res) => {
     req.logOut()
+    req.flash('success_msg', '你已經成功登出。')
     res.redirect('/users/login')
 })
 
