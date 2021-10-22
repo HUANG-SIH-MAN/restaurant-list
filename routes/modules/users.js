@@ -2,6 +2,7 @@ const experss = require('express')
 const router = experss.Router()
 const User = require('../../models/user')
 const passport = require('passport')
+const bcrypt = require('bcryptjs')
 
 router.get('/register', (req, res) => {
     res.render('register')
@@ -17,9 +18,15 @@ router.post('/register', (req, res) => {
         if (user) {
             return res.render('register', { error: '使用者已經註冊過了',name, email, password, confirmPassword })
         } 
-        User.create({ name, email, password })
-        .then(() => res.redirect('/'))
-        .catch(error => console.log(error))
+        return bcrypt
+        .genSalt(10)
+        .then(salt => bcrypt.hash(password, salt))
+        .then(hash => {
+            User.create({ name, email, password: hash })
+            .then(() => res.redirect('/'))
+            .catch(error => console.log(error))       
+        })
+
     })
 })
 
@@ -29,7 +36,8 @@ router.get('/login', (req, res) => {
 
 router.post('/login', passport.authenticate('local', {
     successRedirect: '/',
-    failureRedirect: '/users/login'
+    failureRedirect: '/users/login',
+    failureFlash: true
 }))
 
 router.get('/logout', (req, res) => {
