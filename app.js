@@ -7,6 +7,9 @@ const session = require('express-session')
 const routes = require('./routes')
 const usePassport = require('./config/passport')
 const flash = require('connect-flash')
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config()
+  }
 
 //設定連線路由
 const app = express()
@@ -27,7 +30,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 //登入功能設定
 app.use(session({
-    secret: 'restaurantListSecrect',
+    secret: process.env.SESSION_SECRET,
     name: 'user',
     resave: false,
     saveUninitialized: true
