@@ -9,11 +9,11 @@ const usePassport = require('./config/passport')
 const flash = require('connect-flash')
 if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config()
-  }
+}
 
 //設定連線路由
 const app = express()
-const port = process.env.PORT || 3000
+const port = process.env.PORT
 
 // express 相關設定
 app.engine('handlebars', exphbs({

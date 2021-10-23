@@ -3,6 +3,7 @@ const LocalStrategy = require('passport-local').Strategy
 const User = require('../models/user')
 const bcrypt = require('bcryptjs')
 const facebookStrategy = require('passport-facebook')
+const GoogleStrategy = require('passport-google-oauth20').Strategy
 
 module.exports = app => {
     // 初始化 Passport 模組
@@ -53,6 +54,19 @@ module.exports = app => {
         })
         .catch(err => done(err, false))
     }))
+
+    //設定Google登入策略
+    passport.use(new GoogleStrategy({
+        clientID: process.env.GOOGLE_CLIENT_ID,
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        callbackURL: process.env.GOOGLE_CALLBACK
+      },(accessToken, refreshToken, profile, cb) => {
+          //未設定無法使用，卡在google驗證
+        // User.findOrCreate({ googleId: profile.id }, function (err, user) {
+        //   return cb(err, user);
+        // });
+      }
+    ))
 
     // 設定序列化與反序列化
     passport.serializeUser((user, done) => {
