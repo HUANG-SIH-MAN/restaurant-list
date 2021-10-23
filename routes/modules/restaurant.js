@@ -10,7 +10,7 @@ const IMGUR_CLIENT_ID = 'd99dd1de304981e'
 const upload = multer({ dest: 'temp/' })
 
 //個別餐廳詳細資訊
-router.get('/:id/detail', (req, res) => {
+router.get('/:id', (req, res) => {
     const id = req.params.id
     restaurant.findById(id)
     .lean()
@@ -36,10 +36,10 @@ router.get('/:id/edit', (req, res) => {
 })
 
 //接收編輯後的餐廳資料
-router.put('/:id/edit', (req, res) => {
+router.put('/:id', (req, res) => {
     const id = req.params.id
     restaurant.findByIdAndUpdate(id, { $set: req.body })
-    .then(()=> res.redirect(`/restaurant/${id}/detail`))
+    .then(()=> res.redirect(`/restaurant/${id}`))
     .catch(error => console.log(error))
 })
 
@@ -51,20 +51,23 @@ router.get('/create', (req, res) => {
 //接收新增的餐廳資料
 router.post('/create', upload.single('image'), (req, res) => {
     const { file } = req
+    const {name, name_en, category, location, phone, google_map, rating, description} = req.body
+    const userId = req.user._id
     fs.readFile(file.path, (err, data) => {
         if (err) console.log('Error: ', err)
         imgur.setClientID(IMGUR_CLIENT_ID);
         imgur.upload(file.path, (err, img) => {
               return restaurant.create({
-                name: req.body.name,
-                name_en: req.body.name_en,
-                category: req.body.category,
+                name,
+                name_en,
+                category,
                 image: img.data.link,
-                location: req.body.location,
-                phone: req.body.phone,
-                google_map: req.body.google_map,
-                rating: req.body.rating,
-                description: req.body.description
+                location,
+                phone,
+                google_map,
+                rating,
+                description,
+                userId
             })
             .then(()=> res.redirect('/'))
             .catch(error => console.log(error))

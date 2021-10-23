@@ -28,6 +28,7 @@ app.set('view engine', 'handlebars')
 app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
+
 //登入功能設定
 app.use(session({
     secret: process.env.SESSION_SECRET,
@@ -36,6 +37,8 @@ app.use(session({
     saveUninitialized: true
 }))
 usePassport(app)
+
+//儲存中間訊息
 app.use(flash())
 app.use((req, res, next) => {
     res.locals.isAuthenticated = req.isAuthenticated()

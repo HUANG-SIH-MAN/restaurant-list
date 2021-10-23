@@ -38,6 +38,12 @@ const restaurantSchema = new schema({
     "description":{
         type: String,    
         required: true
+    },
+    "userId": {  
+      type: schema.Types.ObjectId,
+      ref: 'User',
+      index: true,
+      required: true
     }
 })
 
