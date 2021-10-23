@@ -50,7 +50,6 @@ module.exports = app => {
                 .then(()=> done(null, user))
                 .catch(err => done(err, false))
             })
-
         })
         .catch(err => done(err, false))
     }))
@@ -61,10 +60,24 @@ module.exports = app => {
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
         callbackURL: process.env.GOOGLE_CALLBACK
       },(accessToken, refreshToken, profile, cb) => {
-          //未設定無法使用，卡在google驗證
-        // User.findOrCreate({ googleId: profile.id }, function (err, user) {
-        //   return cb(err, user);
-        // });
+        const { name, email } = profile._json
+        User.findOne({ email })
+        .then(user => {
+            if (user) return cb(null, user)
+            const randomPassword = Math.random().toString(36).slice(-8)
+            bcrypt
+            .genSalt(10)
+            .then(salt => bcrypt.hash(randomPassword, salt))
+            .then(hash => {
+                User.create({
+                    name,
+                    email,
+                    password: hash
+                })
+                .then(()=> done(null, user))
+                .catch(err => done(err, false))
+            })
+        })
       }
     ))
 
