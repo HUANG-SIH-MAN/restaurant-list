@@ -22,7 +22,9 @@ router.post('/search', (req, res) => {
         { location: {$regex : keyword, $options:'i'} }
         ]})
     .lean()
-    .then(restaurants => res.render('index', {restaurants, keyword}))
+    .then(restaurants => {
+        return res.render('index', {restaurants, keyword})
+    })
     .catch(error => console.log(error))
 })
 

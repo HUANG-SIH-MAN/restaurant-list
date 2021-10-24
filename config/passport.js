@@ -4,6 +4,7 @@ const User = require('../models/user')
 const bcrypt = require('bcryptjs')
 const facebookStrategy = require('passport-facebook')
 const GoogleStrategy = require('passport-google-oauth20').Strategy
+const TwitterStrategy = require('passport-twitter').Strategy
 
 module.exports = app => {
     // 初始化 Passport 模組
@@ -60,6 +61,34 @@ module.exports = app => {
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
         callbackURL: process.env.GOOGLE_CALLBACK
       },(accessToken, refreshToken, profile, cb) => {
+        const { name, email } = profile._json
+        User.findOne({ email })
+        .then(user => {
+            if (user) return cb(null, user)
+            const randomPassword = Math.random().toString(36).slice(-8)
+            bcrypt
+            .genSalt(10)
+            .then(salt => bcrypt.hash(randomPassword, salt))
+            .then(hash => {
+                User.create({
+                    name,
+                    email,
+                    password: hash
+                })
+                .then(()=> cd(null, user))
+                .catch(err => cd(err, false))
+            })
+        })
+      }
+    ))
+
+    //設定twitter登入策略
+    passport.use(new TwitterStrategy({
+        consumerKey: process.env.TWITTER_CONSUMER_KEY,
+        consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
+        userProfileURL: "https://api.twitter.com/1.1/account/verify_credentials.json?include_email=true",
+        callbackURL: process.env.TWITTER_CALLBACK
+      },(token, tokenSecret, profile, cb) => {
         const { name, email } = profile._json
         User.findOne({ email })
         .then(user => {

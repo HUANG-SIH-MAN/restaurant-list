@@ -37,9 +37,9 @@
     </div>
   </form>
 </div>
-
 <!-- restaurant list -->
 <div class="container mt-5">
+  {{> message}} 
   {{#if  restaurants}}
   <div class="row">
     <div class="col-md-10 col-12 mx-auto">
@@ -81,9 +81,9 @@
   </div>
   {{else}}
     <div class="jumbotron d-flex flex-column align-items-center p-5 bg-light">
-      <h1 class="display-4">搜尋不到符合的餐廳</h1>
-      <p class="lead">嘗試輸入其他關鍵字吧!!</p>
-      <a class="btn btn-primary btn-lg" href="/" role="button">返回首頁</a>
+      <h1 class="display-4">沒有餐廳資料沒關係</h1>
+      <p class="lead">快來新增你最愛的餐廳吧!!</p>
+      <a class="btn btn-primary btn-lg" href="/restaurant/create" role="button">新增餐廳資料</a>
     </div>
   {{/if}}
 </div>

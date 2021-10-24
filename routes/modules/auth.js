@@ -22,4 +22,15 @@ router.get('/google/callback',
     failureRedirect: '/login' 
 }))
 
+router.get('/twitter',
+  passport.authenticate('twitter', { scope: ['profile', 'email'] })
+)
+
+router.get('/twitter/callback', 
+  passport.authenticate('twitter', { 
+    successRedirect: '/',
+    failureRedirect: '/login' 
+}))
+
+
 module.exports = router
