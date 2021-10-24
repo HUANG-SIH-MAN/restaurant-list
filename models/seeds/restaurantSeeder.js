@@ -13,29 +13,32 @@ const userData = require('./userData').results
 const db = require('../../config/mongoose')
 
 db.once('open', ()=>{
-    console.log('mongodb connected!')
-    Promise.all(Array.from(userData, user => {
+    Promise.all(
+        Array.from(userData, user => {
         return bcrypt
         .genSalt(10)
         .then(salt => bcrypt.hash(user.password, salt))
-        .then(hash => {
-            User.create({
-                name: user.name,
-                email: user.email,
-                password: hash
+        .then(hash => User.create({
+            name: user.name,
+            email: user.email,
+            password: hash
+        }))
+        .then(seedUser => {
+            const userId = seedUser._id
+            const restaurantList = []
+            Array.from(user.restaurant_index, index => {
+                restaurantData[index].userId = userId
+                restaurantList.push(restaurantData[index])
             })
-            .then(seedUser => {
-                const userId = seedUser._id
-                Promise.all(Array.from(user.restaurant_index, index => {
-                    restaurantData[index].userId = userId
-                    Restaurant.create(restaurantData[index])
-                }))
-            })
+            return Restaurant.create(restaurantList)
         })
     }))
     .then(()=>{
         console.log('create seed data!')
-        //process.exit()
+        process.exit()
     })
     .catch(err => console.log(err))
 })
+
+
+
